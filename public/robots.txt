@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://angelmatch.com/sitemap.xml
+Sitemap: https://angel-match.netlify.app/sitemap.xml
