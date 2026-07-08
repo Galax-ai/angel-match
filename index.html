@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Answer a few questions and see therapists ranked by a transparent compatibility score — matched on specialty, approach, values, budget, and real availability." />
+    <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#110f13" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://angelmatch.com/" />
+    <meta property="og:title" content="Find the therapist who fits — AngelMatch" />
+    <meta property="og:description" content="Transparent compatibility scores match you with therapists across specialty, approach, values, budget, and availability." />
+    <meta property="og:url" content="https://angelmatch.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AngelMatch" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Find the therapist who fits — AngelMatch</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "AngelMatch",
+        "url": "https://angelmatch.com",
+        "description": "Therapist matching with transparent compatibility scores."
+      }
+    </script>
+    <script>
+      // Resolve the theme before first paint to avoid a flash: stored choice
+      // wins, otherwise follow the OS. Mirrors src/components/ThemeToggle.tsx.
+      (function () {
+        try {
+          var stored = localStorage.getItem('am-theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

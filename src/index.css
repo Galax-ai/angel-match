@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+/* ── AngelMatch design tokens ───────────────────────────────────────────
+   Brand is a single magenta (TikTok hot-pink) carried on a neutral charcoal
+   system. Light mode: white canvas, charcoal ink, magenta brand. Dark mode
+   (follows the OS) REVERSES the neutrals — charcoal canvas, light ink — while
+   magenta stays the constant pop. Tokens are semantic by role, so the dark
+   override below is a value swap, not a reclassing of components. */
+@theme {
+  /* Brand — magenta, constant across themes (brightened slightly in dark). */
+  --color-primary: #fe2c55; /* TikTok hot-pink — the brand */
+  --color-primary-600: #e01e45; /* pressed / white-text-safe depth */
+  --color-primary-light: #ff6b8a; /* light end of brand gradients + halo */
+
+  /* Foreground — charcoal in light, near-white in dark (the reversing pair). */
+  --color-ink: #1b1b20; /* primary text */
+  --color-ink-700: #34343d; /* lifted ink */
+  --color-muted: #63636c; /* muted body text — AA on canvas */
+  --color-heading: #000000; /* h1s — pure black in light, flips light in dark */
+
+  /* Surfaces — flip with the theme. */
+  --color-canvas: #f7f7f8; /* page background */
+  --color-surface: #ffffff; /* cards / raised surfaces */
+  --color-track: #ececef; /* gauge track, soft fills */
+  --color-line: #e6e6ea; /* hairline borders */
+
+  /* Fixed: a dark "feature" band that stays dark in BOTH themes (footer, CTA),
+     and the light ink used as text ON those dark bands. */
+  --color-feature: #1b1b20;
+  --color-offwhite: #f6f6f7;
+
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* ── Radius scale (3) ── controls / cards / large panels */
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-panel: 22px;
+
+  /* ── Elevation scale (3) ── neutral charcoal shadows; no colored glows.
+     card = subtle hover lift · elev = raised cards + floating overlays ·
+     pop = the hero showcase moment. */
+  --shadow-card: 0 8px 30px -12px rgba(18, 18, 26, 0.16);
+  --shadow-elev: 0 18px 50px -28px rgba(18, 18, 26, 0.28);
+  --shadow-pop: 0 24px 70px -30px rgba(18, 18, 26, 0.34);
+
+  /* ── Type ramp (5) ── one deliberate ladder; headings use clamp() inline.
+     fine = eyebrows/fine-print · meta = captions/meta · body = default ·
+     lead = lead paragraphs & card titles · title = sub-section headings. */
+  --text-fine: 12px;
+  --text-meta: 13px;
+  --text-body: 15px;
+  --text-lead: 18px;
+  --text-title: 20px;
+}
+
+/* ── Dark mode ── reverse the neutrals, keep magenta. Driven by data-theme on
+   <html> (set pre-paint by the boot script in index.html), which defaults to the
+   OS preference but is overridden by the header toggle. ──────────────────── */
+:root[data-theme='dark'] {
+  --color-primary: #ff4a6b; /* a touch brighter for contrast on charcoal */
+  --color-primary-600: #ff6a86;
+  --color-primary-light: #ff92aa;
+
+  --color-ink: #f3f3f6; /* text is now light */
+  --color-ink-700: #c9c9d2;
+  --color-muted: #9a9aa5;
+  --color-heading: #f7f7fa; /* headings go light on the dark canvas */
+
+  --color-canvas: #110f13; /* page is now near-black charcoal */
+  --color-surface: #1d1c22; /* cards lift clearly off the canvas */
+  --color-track: #2c2b34;
+  --color-line: #37363f; /* a touch lighter so card edges read */
+
+  --color-feature: #26262d; /* dark band, elevated above the dark canvas */
+
+  --shadow-card: 0 8px 30px -12px rgba(0, 0, 0, 0.5);
+  --shadow-elev: 0 18px 50px -28px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 24px 70px -30px rgba(0, 0, 0, 0.7);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+/* Visible, branded focus ring for keyboard users everywhere. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Headings: tight, confident tracking. */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.022em;
+  line-height: 1.08;
+  text-wrap: balance;
+}

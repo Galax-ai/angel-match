@@ -1,0 +1,22 @@
+# Netlify build + hosting config for AngelMatch.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Server-side functions (the free-text intake parser lives here). Set
+# ANTHROPIC_API_KEY in the Netlify site environment — it stays server-side and
+# is never bundled into the client. Requests hit /.netlify/functions/<name>,
+# which Netlify serves ahead of the SPA catch-all redirect below.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Single-page app fallback: every path that isn't a real static file is served
+# index.html so client-side routing (/match, /therapist/:id, …) works on direct
+# load and refresh. Static assets in dist/ (including /therapists/*.svg) are
+# matched first, so this only catches app routes.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
